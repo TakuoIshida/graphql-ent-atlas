@@ -1,0 +1,45 @@
+# Todo GraphQL Schema
+
+# A Todo item
+type Todo {
+  id: ID!
+  title: String!
+  description: String
+  completed: Boolean!
+  createdAt: Time!
+  updatedAt: Time!
+}
+
+# Input type for creating a new Todo
+input CreateTodoInput {
+  title: String!
+  description: String
+}
+
+# Input type for updating an existing Todo
+input UpdateTodoInput {
+  title: String
+  description: String
+  completed: Boolean
+}
+
+# Custom scalar type for Time (RFC3339 format)
+scalar Time
+
+# Root Query type
+type Query {
+  # Get a specific Todo by ID
+  todo(id: ID!): Todo
+  # Get all Todos
+  todos: [Todo!]!
+}
+
+# Root Mutation type
+type Mutation {
+  # Create a new Todo
+  createTodo(input: CreateTodoInput!): Todo!
+  # Update an existing Todo
+  updateTodo(id: ID!, input: UpdateTodoInput!): Todo!
+  # Delete a Todo
+  deleteTodo(id: ID!): Boolean!
+}

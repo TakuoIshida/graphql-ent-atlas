@@ -1,0 +1,44 @@
+# GraphQL Code Generator configuration
+
+# Schema files to be used for code generation
+schema:
+  - internal/graph/schema/*.graphqls
+
+# Where should the generated server code go?
+exec:
+  filename: internal/graph/generated/generated.go
+  package: generated
+
+# Where should the models be generated?
+model:
+  filename: internal/graph/model/models_gen.go
+  package: model
+
+# Where should the resolvers be generated?
+resolver:
+  layout: follow-schema
+  dir: internal/graph/resolver
+  package: resolver
+
+# Optional: Autobind tells gqlgen to search for any type definitions in the codebase
+# If a type matches the schema it will be used instead of generating a new model
+autobind:
+  - github.com/ishidatakuo/graphql-ent-atlas/ent
+
+# This section declares type mapping from GraphQL schema to Go types
+models:
+  ID:
+    model:
+      - github.com/99designs/gqlgen/graphql.ID
+      - github.com/99designs/gqlgen/graphql.Int
+      - github.com/99designs/gqlgen/graphql.Int64
+      - github.com/99designs/gqlgen/graphql.Int32
+  Todo:
+    model: github.com/ishidatakuo/graphql-ent-atlas/ent.Todo
+  Time:
+    model: time.Time
+
+# Custom scalars configuration
+scalars:
+  Time:
+    model: time.Time
